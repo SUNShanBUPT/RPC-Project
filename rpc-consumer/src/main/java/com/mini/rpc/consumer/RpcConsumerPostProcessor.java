@@ -64,7 +64,7 @@ public class RpcConsumerPostProcessor implements ApplicationContextAware, BeanCl
                 // 返回指定名字的class
                 Class<?> clazz = ClassUtils.resolveClassName(beanClassName, this.classLoader);
 
-                // 通过反射工具类，对Fields进行执行操作，此处为parseRpcReference
+                // 通过反射工具类，对Fields进行执行操作，判断是否为RpcReference.class注解标注的类，如果是，则生成RefBean,并放入map中
                 ReflectionUtils.doWithFields(clazz, this::parseRpcReference);
             }
         }

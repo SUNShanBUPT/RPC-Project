@@ -64,8 +64,9 @@ public class RpcRequestHandler extends SimpleChannelInboundHandler<MiniRpcProtoc
         Class<?>[] parameterTypes = request.getParameterTypes();
         Object[] parameters = request.getParams();
 
-        // 通过cglib动态代理执行目标方法
+        // 通过cglib FastClass生成一个新的类
         // 使用FastClass创建被代理类
+        // FastClass不使用反射类（Constructor或Method）来调用委托类方法，而是动态生成一个新的类（继承FastClass），
         FastClass fastClass = FastClass.create(serviceClass);
 
         // 根据方法名和参数列表，获取被调用的方法，避免重载找不到调用哪个方法
